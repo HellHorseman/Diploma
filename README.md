@@ -1,6 +1,6 @@
-This is a Diploma work by SkyPro.
+This is a Diploma project by SkyPro.
 
 Team: "Team4Team"
-Members: Sergey Sytin, Ependi Khadziev, Eduard Sheffer
+Members: Ependi Khadzhiev, Sergey Syutin, Eduard Sheffer
 
 Contains: This is a back-end develop for internet shop.

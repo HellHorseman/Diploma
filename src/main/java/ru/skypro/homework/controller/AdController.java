@@ -1,13 +1,15 @@
 package ru.skypro.homework.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.model.Ad;
 
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping("/ads")
+@RequiredArgsConstructor
 public class AdController {
     private final AdService adService;
 

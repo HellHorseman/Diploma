@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.model.Ad;
+import ru.skypro.homework.model.Comment;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class AdController {
         return ResponseEntity.ok(ads);
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Ad> getById(@PathVariable Long id) {
         Ad foundAd = adService.findById(id);
         if (foundAd == null) {
@@ -31,7 +32,24 @@ public class AdController {
         return ResponseEntity.ok(foundAd);
     }
 
-    @PostMapping("addAd")
+    /*Получение комментариев объявления*/
+    @GetMapping("{id}/comments")
+    public ResponseEntity<List<Comment>> getCommentsByAd(@PathVariable Long id) {
+        Ad foundAd = adService.findById(id);
+        if (foundAd == null) {
+            return ResponseEntity.notFound().build();
+        }
+        List<Comment> comments = foundAd.getComments();
+        return ResponseEntity.ok(comments);
+    }
+
+    /*Добавление комментария к объявлению*/
+//    @PostMapping("add_comment")
+//    public ResponseEntity<Void> addComment() {
+//
+//        return ResponseEntity.ok().build();
+//    }
+    @PostMapping("add")
     public ResponseEntity<Void> addAd(@RequestBody Ad ad) {
         if (ad == null) {
             return ResponseEntity.notFound().build();
@@ -40,7 +58,7 @@ public class AdController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping()
+    @PatchMapping()
     public ResponseEntity<Void> updateAd(@RequestBody Ad ad) {
         Ad foundAd = adService.find(ad);
         if (foundAd == null) {

@@ -1,7 +1,6 @@
 package ru.skypro.kakavito.mappers;
 
 import lombok.Data;
-import lombok.NonNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -33,7 +32,7 @@ public class UserMapper {
         return userDto;
     }
 
-    public UserPrincipalDTO convertToUserPrincipalDTO(@NonNull User user) {
+    public UserPrincipalDTO convertToUserPrincipalDTO(User user) {
         return modelMapper.map(user, UserPrincipalDTO.class);
     }
 

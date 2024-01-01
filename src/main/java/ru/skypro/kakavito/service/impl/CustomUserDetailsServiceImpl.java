@@ -1,6 +1,5 @@
 package ru.skypro.kakavito.service.impl;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
+import ru.skypro.kakavito.dto.UserPrincipalDTO;
 import ru.skypro.kakavito.exceptions.InvalidPasswordException;
 import ru.skypro.kakavito.exceptions.UserNotFoundException;
+import ru.skypro.kakavito.mappers.UserMapper;
+import ru.skypro.kakavito.model.UserPrincipal;
 import ru.skypro.kakavito.repository.UserRepo;
 
 import java.util.Optional;
@@ -22,18 +24,18 @@ import java.util.Optional;
         для получения данных,
         связанных с пользователем.*/
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsManager {
+public class CustomUserDetailsServiceImpl implements UserDetailsManager {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDetailsService.class);
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
 
 
-    /*процесс поиска пользователя.*/
+    /**процесс поиска пользователя.*/
     @Override
     public UserDetails loadUserByUsername(String email) throws UserNotFoundException {
         ru.skypro.kakavito.model.User user = userRepo.findByEmail(email).get();
-        if (user == null) {
+        if(user == null){
             throw new UserNotFoundException("User not found");
         }
         logger.info("Password in manager after login: {}", user.getPassword());
@@ -46,8 +48,8 @@ public class UserDetailsServiceImpl implements UserDetailsManager {
                 .credentialsExpired(false)
                 .disabled(false)
                 .build();
-    }
 
+    }
 
     @Override
     public void createUser(UserDetails user) {

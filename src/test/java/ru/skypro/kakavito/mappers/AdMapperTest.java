@@ -31,7 +31,7 @@ public class AdMapperTest {
         User user = new User();
         user.setId(1L);
         user.setEmail("test@mail.ru");
-        ad.setAuthor(user);
+        ad.setUser(user);
 
         AdDTO adDTO = adMapper.convertToAdDTO(ad);
 
@@ -49,7 +49,7 @@ public class AdMapperTest {
         ad1.setPrice(50);
         User user1 = new User();
         user1.setId(1L);
-        ad1.setAuthor(user1);
+        ad1.setUser(user1);
 
         Ad ad2 = new Ad();
         ad2.setPk(2);
@@ -57,7 +57,7 @@ public class AdMapperTest {
         ad2.setPrice(75);
         User user2 = new User();
         user2.setId(2L);
-        ad2.setAuthor(user2);
+        ad2.setUser(user2);
 
         List<Ad> adList = Arrays.asList(ad1, ad2);
 
@@ -106,7 +106,7 @@ public class AdMapperTest {
         user.setFirstName("Name");
         user.setLastName("LastName");
         user.setPhone("123-456-7890");
-        ad.setAuthor(user);
+        ad.setUser(user);
 
         ExtendedAdDTO extendedAdDTO = adMapper.convertToExtendedAd(ad);
 

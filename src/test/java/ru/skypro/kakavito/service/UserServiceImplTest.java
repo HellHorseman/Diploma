@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.skypro.kakavito.dto.UpdateUserDTO;
 import ru.skypro.kakavito.mappers.UserMapper;
 import ru.skypro.kakavito.model.User;
 import ru.skypro.kakavito.repository.UserRepo;
@@ -20,85 +21,107 @@ import static org.mockito.Mockito.when;
 
  class UserServiceImplTest {
 
-    @Test
-    void testGetAuthorizedUserReturnsExpectedUser() {
-        // Arrange
-        User expectedUser = new User();
-        UserRepo userRepo = mock(UserRepo.class);
-        when(userRepo.findByEmail(anyString())).thenReturn(Optional.of(expectedUser));
+     private UserMapper userMapper;
 
-        SecurityContext securityContext = mock(SecurityContext.class);
-        Authentication authentication = mock(Authentication.class);
+     private UserService userService;
 
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
+     @Test
+     void testGetAuthorizedUserReturnsExpectedUser() {
+         // Arrange
+         User expectedUser = new User();
+         UserRepo userRepo = mock(UserRepo.class);
+         when(userRepo.findByEmail(anyString())).thenReturn(Optional.of(expectedUser));
 
-        UserDetails userDetails = mock(UserDetails.class);
-        when(authentication.getPrincipal()).thenReturn(userDetails);
-        when(userDetails.getUsername()).thenReturn("test@example.com");
+         SecurityContext securityContext = mock(SecurityContext.class);
+         Authentication authentication = mock(Authentication.class);
 
-        UserService userService = new UserServiceImpl(userRepo, mock(UserMapper.class),
-                mock(PasswordEncoder.class), mock(ImageService.class));
+         when(securityContext.getAuthentication()).thenReturn(authentication);
+         SecurityContextHolder.setContext(securityContext);
 
-        // Act
-        User result = userService.getAuthorizedUser();
+         UserDetails userDetails = mock(UserDetails.class);
+         when(authentication.getPrincipal()).thenReturn(userDetails);
+         when(userDetails.getUsername()).thenReturn("test@example.com");
 
-        // Assert
-        assertNotNull(result);
-        assertEquals(expectedUser, result);
-    }
+         UserService userService = new UserServiceImpl(userRepo, mock(UserMapper.class),
+                 mock(PasswordEncoder.class), mock(ImageService.class));
+
+         // Act
+         User result = userService.getAuthorizedUser();
+
+         // Assert
+         assertNotNull(result);
+         assertEquals(expectedUser, result);
+     }
 
 
-    @Test
-    void testUpdatePasswordSuccessfully() {
-        // Arrange
-        String email = "test@example.com";
-        String currentPassword = "oldPassword";
-        String newPassword = "newPassword";
+     @Test
+     void testUpdatePasswordSuccessfully() {
+         // Arrange
+         String email = "test@example.com";
+         String currentPassword = "oldPassword";
+         String newPassword = "newPassword";
 
-        User mockUser = new User();
-        mockUser.setPassword("encodedPassword");
+         User mockUser = new User();
+         mockUser.setPassword("encodedPassword");
 
-        UserRepo userRepo = mock(UserRepo.class);
-        when(userRepo.findByEmail(email)).thenReturn(Optional.of(mockUser));
+         UserRepo userRepo = mock(UserRepo.class);
+         when(userRepo.findByEmail(email)).thenReturn(Optional.of(mockUser));
 
-        PasswordEncoder encoder = mock(PasswordEncoder.class);
-        when(encoder.matches(currentPassword, "encodedPassword")).thenReturn(true);
+         PasswordEncoder encoder = mock(PasswordEncoder.class);
+         when(encoder.matches(currentPassword, "encodedPassword")).thenReturn(true);
 
-        UserServiceImpl userService = new UserServiceImpl(userRepo, mock(UserMapper.class),
-                encoder, mock(ImageService.class));
+         UserServiceImpl userService = new UserServiceImpl(userRepo, mock(UserMapper.class),
+                 encoder, mock(ImageService.class));
 
-        // Act
-        boolean result = userService.setNewPassword(email, currentPassword, newPassword);
+         // Act
+         boolean result = userService.setNewPassword(email, currentPassword, newPassword);
 
-        // Assert
-        assertTrue(result);
-    }
+         // Assert
+         assertTrue(result);
+     }
 
-    @Test
-    void testUpdatePasswordFailsForIncorrectCurrentPassword() {
-        // Arrange
-        String email = "test@example.com";
-        String currentPassword = "incorrectPassword";
-        String newPassword = "newPassword";
+     @Test
+     void testUpdatePasswordFailsForIncorrectCurrentPassword() {
+         // Arrange
+         String email = "test@example.com";
+         String currentPassword = "incorrectPassword";
+         String newPassword = "newPassword";
 
-        User mockUser = new User();
-        mockUser.setPassword("encodedPassword");
+         User mockUser = new User();
+         mockUser.setPassword("encodedPassword");
 
-        UserRepo userRepo = mock(UserRepo.class);
-        when(userRepo.findByEmail(email)).thenReturn(Optional.of(mockUser));
+         UserRepo userRepo = mock(UserRepo.class);
+         when(userRepo.findByEmail(email)).thenReturn(Optional.of(mockUser));
 
-        PasswordEncoder encoder = mock(PasswordEncoder.class);
-        when(encoder.matches(currentPassword, "encodedPassword")).thenReturn(false);
+         PasswordEncoder encoder = mock(PasswordEncoder.class);
+         when(encoder.matches(currentPassword, "encodedPassword")).thenReturn(false);
 
-        UserServiceImpl userService = new UserServiceImpl(userRepo, mock(UserMapper.class),
-                encoder, mock(ImageService.class));
+         UserServiceImpl userService = new UserServiceImpl(userRepo, mock(UserMapper.class),
+                 encoder, mock(ImageService.class));
 
-        // Act
-        boolean result = userService.setNewPassword(email, currentPassword, newPassword);
+         // Act
+         boolean result = userService.setNewPassword(email, currentPassword, newPassword);
 
-        // Assert
-        assertFalse(result);
-    }
-}
+         // Assert
+         assertFalse(result);
+     }
+
+     @Test
+     void testUpdateMyProfile() {
+         UserRepo userRepo = mock(UserRepo.class);
+         User user = new User();
+         UpdateUserDTO updateUser = new UpdateUserDTO();
+
+         when(userRepo.findById(user.getId())
+                 .map(oldUser -> {
+                     oldUser.setFirstName(updateUser.getFirstName());
+                     oldUser.setLastName(updateUser.getLastName());
+                     oldUser.setPhone(updateUser.getPhone());
+                     return userMapper.convertToUpdateUserDTO(userRepo.save(oldUser));
+                 }));
+         boolean result = user.equals(updateUser);
+
+         assertFalse(result);
+     }
+ }
 

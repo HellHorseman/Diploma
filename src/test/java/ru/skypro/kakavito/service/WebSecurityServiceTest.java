@@ -47,7 +47,7 @@ public class WebSecurityServiceTest {
         user.setEmail("test");
         ad.setUser(user);
         when(adRepo.findById(anyInt())).thenReturn(Optional.of(ad));
-        Assertions.assertFalse(webSecurityService.canAccessInAd(2, "test"));
+        Assertions.assertFalse(webSecurityService.canAccessInAd(2, "test2"));
     }
 
     @Test

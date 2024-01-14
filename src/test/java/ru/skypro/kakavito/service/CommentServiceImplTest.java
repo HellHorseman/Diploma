@@ -89,54 +89,54 @@ public class CommentServiceImplTest {
                 .hasMessageContaining("Объявление с Id: " + ID1 + " не найдено");
     }
 
-//    @Test
-//    void deleteComment() {
-//        setAuthentication();
-//        when(userRepo.findById(ID1)).thenReturn(Optional.of(getUser()));
-//        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
-//        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.of(ID1));
-//        when(userRepo.findById(ID1)).thenReturn(Optional.of(getUser()));
-//        when(commentRepo.existsById(ID1)).thenReturn(true);
-//        when(commentRepo.findById(ID1)).thenReturn(Optional.of(getComment()));
-//        assertThatCode((() -> out.deleteComment(ID1, ID1)))
-//                .doesNotThrowAnyException();
-//    }
+    @Test
+    void deleteComment() {
+        setAuthentication();
+        when(userRepo.findById(ID1)).thenReturn(Optional.of(getUser()));
+        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
+        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.of(ID1));
+        when(userRepo.findById(ID1)).thenReturn(Optional.of(getUser()));
+        when(commentRepo.existsById(ID1)).thenReturn(true);
+        when(commentRepo.findById(ID1)).thenReturn(Optional.of(getComment()));
+        assertThatCode((() -> out.deleteComment(ID1, ID1)))
+                .doesNotThrowAnyException();
+    }
 
-//    @Test
-//    void deleteComment_shouldThrow1() {
-//        setAuthentication();
-//        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
-//        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.empty());
-//        assertThatThrownBy(() -> out.deleteComment(ID1, ID1))
-//                .isInstanceOf(CommentNotFoundException.class)
-//                .hasMessageContaining("Комментарий с id: " + ID1 + " не найден");
-//    }
+    @Test
+    void deleteComment_shouldThrow1() {
+        setAuthentication();
+        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
+        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> out.deleteComment(ID1, ID1))
+                .isInstanceOf(CommentNotFoundException.class)
+                .hasMessageContaining("Комментарий с id: " + ID1 + " не найден");
+    }
 
-//    @Test
-//    void deleteComment_shouldThrow2() {
-//        setAuthentication();
-//        when(userRepo.findById(ID1)).thenReturn(Optional.empty());
-//        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
-//        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.of(ID1));
-//        when(userRepo.findById(ID1)).thenReturn(Optional.empty());
-//        assertThatThrownBy(() -> out.deleteComment(ID1, ID1))
-//                .isInstanceOf(UserNotFoundException.class)
-//                .hasMessageContaining("Пользователь, написавший комментария с id: " + ID1 + " не найден");
-//    }
+    @Test
+    void deleteComment_shouldThrow2() {
+        setAuthentication();
+        when(userRepo.findById(ID1)).thenReturn(Optional.empty());
+        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
+        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.of(ID1));
+        when(userRepo.findById(ID1)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> out.deleteComment(ID1, ID1))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("Пользователь, написавший комментария с id: " + ID1 + " не найден");
+    }
 
-//    @Test
-//    void deleteComment_shouldThrow3() {
-//        setAuthentication();
-//        when(userRepo.findById(ID1)).thenReturn(Optional.of(getUser()));
-//        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
-//        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.of(ID1));
-//        User commentAuthor = getUser();
-//        commentAuthor.setId(Long.valueOf(ID2));
-//        when(userRepo.findById(ID1)).thenReturn(Optional.of(commentAuthor));
-//        assertThatThrownBy(() -> out.updateComment(ID1, ID1, new CreateOrUpdateCommentDTO()))
-//                .isInstanceOf(UserNotAuthorizedException.class)
-//                .hasMessageContaining("У пользователя c id: " + ID1 + " недостаточно прав для редактирования комментария: " + ID1);
-//    }
+    @Test
+    void deleteComment_shouldThrow3() {
+        setAuthentication();
+        when(userRepo.findById(ID1)).thenReturn(Optional.of(getUser()));
+        when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(getUser()));
+        when(commentRepo.findAuthorIdById(ID1)).thenReturn(Optional.of(ID1));
+        User commentAuthor = getUser();
+        commentAuthor.setId(Long.valueOf(ID2));
+        when(userRepo.findById(ID1)).thenReturn(Optional.of(commentAuthor));
+        assertThatThrownBy(() -> out.updateComment(ID1, ID1, new CreateOrUpdateCommentDTO()))
+                .isInstanceOf(UserNotAuthorizedException.class)
+                .hasMessageContaining("У пользователя c id: " + ID1 + " недостаточно прав для редактирования комментария: " + ID1);
+    }
 
     private void setAuthentication() {
         when(securityContext.getAuthentication()).thenReturn(authentication);

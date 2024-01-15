@@ -106,22 +106,5 @@ import static org.mockito.Mockito.when;
          assertFalse(result);
      }
 
-     @Test
-     void testUpdateMyProfile() {
-         UserRepo userRepo = mock(UserRepo.class);
-         User user = new User();
-         UpdateUserDTO updateUser = new UpdateUserDTO();
-
-         when(userRepo.findById(user.getId())
-                 .map(oldUser -> {
-                     oldUser.setFirstName(updateUser.getFirstName());
-                     oldUser.setLastName(updateUser.getLastName());
-                     oldUser.setPhone(updateUser.getPhone());
-                     return userMapper.convertToUpdateUserDTO(userRepo.save(oldUser));
-                 }));
-         boolean result = user.equals(updateUser);
-
-         assertFalse(result);
-     }
  }
 

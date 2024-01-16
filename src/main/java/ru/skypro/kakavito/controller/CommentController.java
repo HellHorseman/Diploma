@@ -69,13 +69,14 @@ public class CommentController {
      * @see CreateOrUpdateCommentDTO
      */
     @PatchMapping("{adId}/comments/{commentId}")
-    public ResponseEntity<?> updateComment(@PathVariable int adId,
+    public ResponseEntity<CommentDTO> updateComment(@PathVariable int adId,
                                            @PathVariable int commentId,
                                            @RequestBody CreateOrUpdateCommentDTO text) {
-        commentService.updateComment(adId, commentId, text);
         if (text == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        CommentDTO commentDTO = commentService.updateComment(adId, commentId, text);
+
+        return ResponseEntity.ok(commentDTO);
     }
 }

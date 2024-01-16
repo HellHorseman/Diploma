@@ -31,11 +31,12 @@ public class CommentMapper {
      * Конвертирует в CommentDTO
      *
      * @param comment
-     * @return CommenDTO
+     * @return CommentDTO
      * @see CommentDTO
      */
     public CommentDTO toDto(Comment comment) {
         CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+
         commentDTO.setPk(comment.getId());
         commentDTO.setCreatedAt(comment.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         commentDTO.setText(comment.getText());
@@ -43,8 +44,11 @@ public class CommentMapper {
         if (user != null) {
             commentDTO.setAuthor(Math.toIntExact(user.getId()));
             commentDTO.setAuthorFirstName(user.getFirstName());
-            commentDTO.setAuthorImage(imageQuery + user.getImage().getId());
+            if (user.getImage() != null) {
+                commentDTO.setAuthorImage(imageQuery + user.getImage().getId());
+            }
         }
+
         return commentDTO;
     }
 

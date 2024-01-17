@@ -10,18 +10,17 @@ To install Docker on your computer, follow the instructions at [Docker Desktop](
 
 Once Docker is installed, open the command line (or terminal) and execute the following command to run the frontend:
 
-```bash
 docker run -p 3000:3000 --rm ghcr.io/bizinmitya/front-react-avito:v1.21
 
-Backend Development
+## Backend Development
 The backend part of the project involves implementing the following functionality:
 
-User authentication and authorization.
+## User authentication and authorization.
 Role assignment for users: regular users and administrators.
 CRUD operations for announcements and comments: administrators can delete or edit all announcements and comments, while regular users can only modify their own.
 Allow users to leave comments under each announcement.
 Display and store images for announcements, as well as user avatars.
-Nice to Have
+## Nice to Have
 Ensure code is properly formatted.
 Avoid code duplications exceeding three lines; common operations should be placed in services or utility methods.
 Meaningful naming for variables and classes.

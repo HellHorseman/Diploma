@@ -12,19 +12,24 @@ Once Docker is installed, open the command line (or terminal) and execute the fo
 
 docker run -p 3000:3000 --rm ghcr.io/bizinmitya/front-react-avito:v1.21
 
-## Backend Development
-The backend part of the project involves implementing the following functionality:
+**Backend Development for Resale Platform**
 
-## User authentication and authorization.
-Role assignment for users: regular users and administrators.
-CRUD operations for announcements and comments: administrators can delete or edit all announcements and comments, while regular users can only modify their own.
-Allow users to leave comments under each announcement.
-Display and store images for announcements, as well as user avatars.
-## Nice to Have
-Ensure code is properly formatted.
-Avoid code duplications exceeding three lines; common operations should be placed in services or utility methods.
-Meaningful naming for variables and classes.
-No commented-out sections, unreachable instructions, or unused methods in the code.
-Follow the Single Responsibility Principle (SRP): each class should perform one task or work with one entity.
-Prioritize integration tests, but some components, such as mappers, can be tested with unit tests.
-Feel free to contribute to the project and make it even better! If you have any questions, please reach out to the project contributors.
+The goal of this backend development project is to create the Java backend for a resale platform. The backend is expected to implement the following functionality:
+
+1. **User Authentication and Authorization:**
+   - Implement user login and authentication mechanisms.
+
+2. **Role Distribution Among Users:**
+   - Define roles for users, distinguishing between regular users and administrators.
+
+3. **CRUD Operations for Announcements and Comments:**
+   - Allow administrators to delete or edit any announcement or comment.
+   - Users should be able to perform CRUD operations on their own announcements and comments.
+
+4. **User Commenting on Announcements:**
+   - Enable users to leave comments under each announcement.
+
+5. **Display and Storage of Images:**
+   - Implement functionality to display and store images for both announcements and user avatars.
+
+

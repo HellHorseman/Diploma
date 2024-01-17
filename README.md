@@ -2,7 +2,7 @@
 
 # Resale Platform Backend
 
-This collaborative project, led by the team comprising **Ependi Hadzhiev**, **Sergey Syutin**, and **Eduard Sheffer**, aims to develop the backend part of a resale platform for selling items. The frontend part of the website is already implemented and can be run using Docker. Below are the instructions for setting up and running the frontend:
+This collaborative project, led by the team comprising **Sergey Syutin**, **Ependi Hadzhiev**, and **Eduard Sheffer**, aims to develop the backend part of a resale platform for selling items. The frontend part of the website is already implemented and can be run using Docker. Below are the instructions for setting up and running the frontend:
 
 ## Frontend Setup
 

@@ -4,32 +4,40 @@
 
 This collaborative project, led by the team comprising **Sergey Syutin**, **Ependi Hadzhiev**, and **Eduard Sheffer**, aims to develop the backend part of a resale platform for selling items. The frontend part of the website is already implemented and can be run using Docker. Below are the instructions for setting up and running the frontend:
 
-## Frontend Setup
 
-To install Docker on your computer, follow the instructions at [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+## Overview
 
-Once Docker is installed, open the command line (or terminal) and execute the following command to run the frontend:
+This project involves the development of the backend part of a website using Java. The backend is designed to implement various features, including user authentication, role management, CRUD operations for announcements and comments, user commenting functionality, and the display/storage of images for announcements and user avatars. Technologies such as Spring Security, Hibernate, Mockito, Unit Testing, and others were utilized in collaboration with the team to achieve these functionalities.
 
-docker run -p 3000:3000 --rm ghcr.io/bizinmitya/front-react-avito:v1.21
-
-**Backend Development for Resale Platform**
-
-The goal of this backend development project is to create the Java backend for a resale platform. The backend is expected to implement the following functionality:
+## Features
 
 1. **User Authentication and Authorization:**
-   - Implement user login and authentication mechanisms.
+   - Implement secure user login and authentication mechanisms.
 
-2. **Role Distribution Among Users:**
-   - Define roles for users, distinguishing between regular users and administrators.
+2. **Role-Based Access Control:**
+   - Distribute roles among users, differentiating between regular users and administrators.
 
-3. **CRUD Operations for Announcements and Comments:**
-   - Allow administrators to delete or edit any announcement or comment.
-   - Users should be able to perform CRUD operations on their own announcements and comments.
+3. **Announcements and Comments Management:**
+   - Enable CRUD operations for announcements and comments.
+   - Administrators have the authority to delete or edit any announcement or comment.
+   - Users can perform CRUD operations only on their own announcements and comments.
 
-4. **User Commenting on Announcements:**
-   - Enable users to leave comments under each announcement.
+4. **User Commenting:**
+   - Allow users to leave comments under each announcement.
 
-5. **Display and Storage of Images:**
-   - Implement functionality to display and store images for both announcements and user avatars.
+5. **Image Handling:**
+   - Implement the display and storage of images for announcements and user avatars.
+
+## Technologies Used
+
+- Spring Security
+- Hibernate
+- Mockito
+- Unit Testing
+
+## Setup
+
+1. **Clone the Repository:**
+   git clone [repository-url]
 
 

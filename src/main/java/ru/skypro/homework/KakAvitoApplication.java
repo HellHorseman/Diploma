@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class HomeworkApplication {
+public class KakAvitoApplication {
   public static void main(String[] args) {
-    SpringApplication.run(HomeworkApplication.class, args);
+    SpringApplication.run(KakAvitoApplication.class, args);
   }
 
   @Bean
